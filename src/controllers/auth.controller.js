@@ -29,3 +29,12 @@ export const login = async (req, res, next) => {
     next(createError(401, err.message));
   }
 };
+
+export const getMe = async (req, res, next) => {
+  try {
+    const me = await authService.getMe(req.user.id);
+    res.json(me);
+  } catch (err) {
+    next(err);
+  }
+};
