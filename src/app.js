@@ -10,6 +10,8 @@ import meRoute from "./routes/me.route.js";
 import voyageRoute from "./routes/voyage.route.js";
 import activityRoute from "./routes/activity.route.js";
 import consumptionRoute from "./routes/consumption.route.js";
+import fuelConsumptionRoute from "./routes/fuel-consumption.route.js";
+
 
 
 dotenv.config();
@@ -29,6 +31,7 @@ app.use("/api/vessels", vesselRoute);
 app.use("/api", voyageRoute);
 app.use("/api", activityRoute);
 app.use("/api", consumptionRoute);
+app.use("/api", fuelConsumptionRoute);
 
 
 app.use(notFound);

@@ -60,6 +60,9 @@ model Voyage {
   status   VoyageStatus @default(OPEN)
   active   Boolean      @default(true)
 
+  fuelRob     FuelRob?
+  fuelBunkers FuelBunkerEvent[]
+
   postingYear  Int
   postingMonth Int
 
@@ -139,6 +142,33 @@ model Consumption {
 
   @@index([activityId])
   @@index([category])
+}
+
+model FuelRob {
+  id         Int      @id @default(autoincrement())
+  voyageId   Int      @unique
+  openingRob Decimal  @db.Decimal(14, 2)
+  closingRob Decimal  @db.Decimal(14, 2)
+  unit       String   @default("L")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  voyage Voyage @relation(fields: [voyageId], references: [id], onDelete: Cascade)
+}
+
+model FuelBunkerEvent {
+  id        Int      @id @default(autoincrement())
+  voyageId  Int
+  at        DateTime
+  amount    Decimal  @db.Decimal(14, 2)
+  unit      String   @default("L")
+  remark    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  voyage Voyage @relation(fields: [voyageId], references: [id], onDelete: Cascade)
+
+  @@index([voyageId, at])
 }
 
 enum ConsumptionScope {

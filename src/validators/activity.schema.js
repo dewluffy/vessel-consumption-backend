@@ -39,41 +39,41 @@ const CargoLoadBody = z.object({
   ...baseTimeFields,
   ...cargoFields,
   ...commonFields,
-});
+}).strict();
 
 const CargoDischargeBody = z.object({
   type: z.literal("CARGO_DISCHARGE"),
   ...baseTimeFields,
   ...cargoFields,
   ...commonFields,
-});
+}).strict();
 
 const ManoeuvringBody = z.object({
   type: z.literal("MANOEUVRING"),
   ...baseTimeFields,
   // ไม่มี containerCount/weight
   ...commonFields,
-});
+}).strict();
 
 const AnchoringBody = z.object({
   type: z.literal("ANCHORING"),
   ...baseTimeFields,
   ...commonFields,
-});
+}).strict();
 
 const FullSpeedAwayBody = z.object({
   type: z.literal("FULL_SPEED_AWAY"),
   ...baseTimeFields,
   avgSpeed: numPosStrict, // ความเร็วเฉลี่ยตอน FSW
   ...commonFields,
-});
+}).strict();
 
 const OtherBody = z.object({
   type: z.literal("OTHER"),
   ...baseTimeFields,
   remark: z.string().min(1).max(500), // OTHER บังคับมีรายละเอียด
   // field อื่นไม่บังคับ
-});
+}).strict();
 
 /**
  * Discriminated Union
